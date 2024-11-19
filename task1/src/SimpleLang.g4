@@ -41,6 +41,8 @@ exp
     | typed_idfr (Assign exp)?                              #AssignTypedExpr
     | NewLine                                               #NewLineExpr
     | Space                                                 #SpaceExpr
+    | Skip                                                  #SkipExpr
+    | Repeat block Until exp                                #RepeatUntilExpr
 ;
 
 binop
@@ -87,11 +89,14 @@ Assign : ':=' ;
 
 Print : 'print' ;
 Space : 'space' ;
+Skip : 'skip' ;
 NewLine : 'newline' ;
 If : 'if' ;
 Then : 'then' ;
 Else : 'else' ;
 While : 'while';
+Repeat : 'repeat';
+Until : 'until';
 Do : 'do';
 
 IntType : 'int' ;
@@ -101,4 +106,4 @@ UnitType : 'unit' ;
 BoolLit : 'true' | 'false' ;
 IntLit : '0' | ('-'? [1-9][0-9]*) ;
 Idfr : [a-z][A-Za-z0-9_]* ;
-WS : [ \n\r\t]+ -> skip ;
+WS : [ \n\r\t]+ -> Skip ;

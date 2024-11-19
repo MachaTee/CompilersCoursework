@@ -145,7 +145,7 @@ public class SimpleLangInterpreter extends AbstractParseTreeVisitor<Integer> imp
         SimpleLangParser.Typed_idfrContext type_identifier = ctx.typed_idfr();
         SimpleLangParser.ExpContext right_hand_side = ctx.exp();
 
-        Map<String, Integer> new_frame = new HashMap<>(frames.peek()); // Construct new frame with all tokens from previous frame
+//        Map<String, Integer> new_frame = new HashMap<>(frames.peek()); // Construct new frame with all tokens from previous frame
 //        new_frame.put(type_identifier.Idfr().getText(), visit(right_hand_side));
 //        frames.push(new_frame);                                        // Declare identifier
         frames.peek().put(type_identifier.Idfr().getText(), visit(right_hand_side));
@@ -162,6 +162,23 @@ public class SimpleLangInterpreter extends AbstractParseTreeVisitor<Integer> imp
 
     @Override
     public Integer visitNewLineExpr(SimpleLangParser.NewLineExprContext ctx) {
+        return null;
+    }
+
+    @Override
+    public Integer visitSkipExpr(SimpleLangParser.SkipExprContext ctx) { return null; }
+
+    @Override
+    public Integer visitRepeatUntilExpr(SimpleLangParser.RepeatUntilExprContext ctx) {
+        SimpleLangParser.ExpContext exp = ctx.exp();
+        SimpleLangParser.BlockContext block = ctx.block();
+
+        do
+        {
+            visit(block);
+        }
+        while(visit(exp) != 0);
+
         return null;
     }
 
@@ -287,8 +304,6 @@ public class SimpleLangInterpreter extends AbstractParseTreeVisitor<Integer> imp
     @Override public Integer visitWhileExpr(SimpleLangParser.WhileExprContext ctx)
     {
         SimpleLangParser.ExpContext exp = ctx.exp();
-        Integer visit_test = visit(exp);
-
         SimpleLangParser.BlockContext block = ctx.block();
 
         while (visit(exp) != 0)

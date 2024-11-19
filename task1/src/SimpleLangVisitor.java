@@ -143,6 +143,20 @@ public interface SimpleLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNewLineExpr(SimpleLangParser.NewLineExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SkipExpr}
+	 * labeled alternative in {@link SimpleLangParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSkipExpr(SimpleLangParser.SkipExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RepeatUntilExpr}
+	 * labeled alternative in {@link SimpleLangParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRepeatUntilExpr(SimpleLangParser.RepeatUntilExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code EqBinop}
 	 * labeled alternative in {@link SimpleLangParser#binop}.
 	 * @param ctx the parse tree
